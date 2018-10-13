@@ -1,6 +1,8 @@
 
 all:
 
+install:
+
 wc:
 	wc *.sh *.awk
 
