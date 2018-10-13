@@ -2,6 +2,8 @@
 Introduction
 ------------
 
+The Power Plant Tracker (PPT) tracks hydro power station power outputs and flows. It pulls public data about power station yearly power outputs and the vertical drop in those stations, and calculates the composite and average water flows that were needed to achieve those power levels.
+
 
 Usage
 ----
