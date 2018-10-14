@@ -67,6 +67,17 @@ Supported government data sources
 
 Currently, the software supports only Serbian government data sources.
 
+It is possible to add new data sources. The file ppt_countries.txt holds entries of the following style:
+
+    country:somecountry:scriptname
+
+where the scriptname is a script that produces hydro power station entries of the following format:
+
+    production:somecountry:stationname:yearlykwh:nethead
+
+where somecountry is the name of the country, stationname is the name of the relevant power station (this must be in lower case), yearlykwh is the yearly actual production output of the station, and nethead is the amount of drop between the power station intake and generator.
+
+
 Contributors
 ------------
 
