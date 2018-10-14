@@ -2,6 +2,7 @@
 
 #
 # General variable settings
+#
 
 TMPDIR=/tmp
 BASEDIR=`echo $0 | sed 's%/ppt_flowcalculator.sh%%g'`
@@ -66,19 +67,22 @@ done
 # Determine what countries to look at
 #
 
+rm -f $TMPDIR/power.all.db
+touch $TMPDIR/power.all.db
+
 if [ "x$COUNTRY" = xall ]
 then
     COUNTRIES=`cut -f2 -d: $COUNTRIESFILE`
     if [ $DEBUG = 1 ]
     then
-	echo "ppt_flowcalculator: debug: fetching all countries: $COUNTRIES..."
+	echo "ppt_flowcalculator: debug: fetching all countries: $COUNTRIES..." >> /dev/stderr
     fi
 else
     if fgrep -e "country:$COUNTRY:" $COUNTRIESFILE > /dev/null
     then
 	if [ $DEBUG = 1 ]
 	then
-	    echo "ppt_flowcalculator: debug: found country $COUNTRY..."
+	    echo "ppt_flowcalculator: debug: found country $COUNTRY..." >> /dev/stderr
 	fi
     else
 	echo "ppt_flowcalculator.sh: error: unsupported country ($COUNTRY) -- bailing"
@@ -91,63 +95,33 @@ for CURRENTCOUNTRY in $COUNTRIES
 do
     if [ $DEBUG = 1 ]
     then
-	echo "ppt_flowcalculator: debug: processing country $CURRENTCOUNTRY..."
+	echo "ppt_flowcalculator: debug: processing country $CURRENTCOUNTRY..." >> /dev/stderr
     fi
+    COUNTRYSCRIPT=`fgrep -e "country:$CURRENTCOUNTRY:" $COUNTRIESFILE | cut -f3 -d:`
+    if [ "x$COUNTRYSCRIPT" = x ]
+    then
+	echo "ppt_flowcalculator: error: no script found for $CURRENTCOUNTRY -- bailing"
+	exit 1
+    fi
+    if [ $DEBUG = 1 ]
+    then
+	SCRIPTARGS="--debug"
+    else
+	SCRIPTARGS="--no-debug"
+    fi
+    if [ $DEEPDEBUG = 1 ]
+    then
+	SCRIPTARGS="$SCRIPTARGS --deep-debug"
+    else
+	SCRIPTARGS="$SCRIPTARGS --no-deep-debug"
+    fi
+    if [ $DEBUG = 1 ]
+    then
+	echo "ppt_flowcalculator: debug: running script $COUNTRYSCRIPT with arguments $SCRIPTARGS..." >> /dev/stderr
+    fi
+    $BASEDIR/$COUNTRYSCRIPT $SCRIPTARGS >> $TMPDIR/power.all.db
+    
 done
-
-# 
-# Get the necessary files from the Internet
-#
-
-if [ $DEBUG = 1 ]
-then
-    echo "ppt_flowcalculator: debug: fetching hydro database..."
-fi
-
-wget -q -O $TMPDIR/hydro.html "$HYDROWEBFILE"
-
-if [ $DEBUG = 1 ]
-then
-    echo "ppt_flowcalculator: debug: fetching power production database..."
-fi
-
-wget -q -O $TMPDIR/kwh.pdf "$POWERWEBFILE"
-
-#
-# Convert format to something that can be processed
-#
-
-pdftotext -nopgbrk -fixed 200 $TMPDIR/kwh.pdf $TMPDIR/kwh.txt
-
-#
-# Read the data (mostly screen scraping, no JSON/XML available sadly...)
-#
-
-if [ $DEBUG = 1 ]
-then
-    echo "ppt_flowcalculator: debug: parsing hydro database..."
-fi
-
-(cat $NETHEADFILE;
- cat $TMPDIR/hydro.html) |
-    tee $TMPDIR/input.for.hydro.txt |
-    gawk -v basedir=$BASEDIR \
-	 -v debug=$DEEPDEBUG \
-	 -f $BASEDIR/ppt_common.awk \
-	 -f $BASEDIR/ppt_parsehydro.awk > $TMPDIR/hydro.db
-
-if [ $DEBUG = 1 ]
-then
-    echo "ppt_flowcalculator: debug: parsing power production database..."
-fi
-
-(cat $TMPDIR/hydro.db;
- cat $TMPDIR/kwh.txt) |
-    tee $TMPDIR/input.for.power.txt |
-    gawk -v basedir=$BASEDIR \
-	 -v debug=$DEEPDEBUG \
-	 -f $BASEDIR/ppt_common.awk \
-	 -f $BASEDIR/ppt_parsekwh.awk > $TMPDIR/power.db
 
 #
 # Calculate flows
@@ -155,10 +129,10 @@ fi
 
 if [ $DEBUG = 1 ]
 then
-    echo "ppt_flowcalculator: debug: calculating flows..."
+    echo "ppt_flowcalculator: debug: calculating flows..." >> /dev/stderr
 fi
 
-cat $TMPDIR/power.db |
+cat $TMPDIR/power.all.db |
     gawk -v basedir=$BASEDIR \
 	 -v debug=$DEEPDEBUG \
 	 -f $BASEDIR/ppt_common.awk \

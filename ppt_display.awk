@@ -4,14 +4,15 @@ BEGIN {
 }
 
 /^flow:/ {
-    name = $2;
-    yearlykwh = $3;
-    nethead = $4;
-    averagepowerkw = $5;
-    averageflowm3 = $6;
-    yearlyflowm3 = $7;
+    country = $2;
+    name = $3;
+    yearlykwh = $4;
+    nethead = $5;
+    averagepowerkw = $6;
+    averageflowm3 = $7;
+    yearlyflowm3 = $8;
 
-    printf("For hydro power station %s:\n", name);
+    printf("For hydro power station %s (%s):\n", name, country);
     printf("\n");
     printf("Yearly power           %12.3f KWh\n", yearlykwh);
     printf("Net head (height)      %12.3f m\n", nethead);

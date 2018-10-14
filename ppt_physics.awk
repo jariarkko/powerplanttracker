@@ -43,16 +43,17 @@ BEGIN {
 }
 
 /^production:/ {
-    name = $2;
-    kwh = $3;
-    nethead = $4;
+    country = $2;
+    name = $3;
+    kwh = $4;
+    nethead = $5;
 
     if (debug) printf("got power entry for %s...\n", name) >> "/dev/stderr";
     
     if (nethead != "") {
 	flow = doflow(kwh,nethead);
 	if (debug) printf("calculation for %s from %f is %f\n", name, nethead, flow) >> "/dev/stderr";
-	printf("flow:%s:%f:%f:%s\n", name, kwh, nethead, flow);
+	printf("flow:%s:%s:%f:%f:%s\n", country, name, kwh, nethead, flow);
     }
     next;
 }

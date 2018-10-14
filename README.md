@@ -75,7 +75,7 @@ where the scriptname is a script that produces hydro power station entries of th
 
     production:somecountry:stationname:yearlykwh:nethead
 
-where somecountry is the name of the country, stationname is the name of the relevant power station (this must be in lower case), yearlykwh is the yearly actual production output of the station, and nethead is the amount of drop between the power station intake and generator. The script will get no input in stdin, but will have to deal with command line arguments "--debug", "--no-debug", "--deepdebug", and "--no-deepdebug".
+where somecountry is the name of the country, stationname is the name of the relevant power station (this must be in lower case), yearlykwh is the yearly actual production output of the station, and nethead is the amount of drop between the power station intake and generator. The script will get no input in stdin, but will have to deal with command line arguments "--debug", "--no-debug", "--deep-debug", and "--no-deep-debug".
 
 
 Contributors

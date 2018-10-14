@@ -11,6 +11,14 @@ function handlecolname(x) {
     return(res);
 }
 
+function reportone(country) {
+    if (debug) printf("found a new KWh entry for %s at %s kwh, nethead = %s\n", colname, colkwh, nethead[colname]) >> "/dev/stderr";
+    colkwhclean = colkwh;
+    gsub(/[.]/,"",colkwhclean);
+    gsub(/,/,".",colkwhclean);
+    printf("production:%s:%s:%s:%s\n", country, colname, colkwhclean, nethead[colname]);
+}
+
 function trimspaces(s) {
     gsub("^ *","",s);
     gsub(" *$","",s);

@@ -1,14 +1,6 @@
-function reportone() {
-    if (debug) printf("found a new KWh entry for %s at %s kwh, nethead = %s\n", colname, colkwh, nethead[colname]) >> "/dev/stderr";
-    colkwhclean = colkwh;
-    gsub(/[.]/,"",colkwhclean);
-    gsub(/,/,".",colkwhclean);
-    printf("production:%s:%s:%s\n", colname, colkwhclean, nethead[colname]);
-}
-
 function checkifready() {
     if (numfieldctr == 5 && seennamefield && seencompanyfield) {
-	reportone();
+	reportone("serbia");
 	colname = "";
 	colkwh = "";
 	colcompany = "";
@@ -90,32 +82,6 @@ BEGIN {
     }
     next;
 }
-
-#/^ЖУПАЊ ДОО БЕОГРАД$/ {
-#    if (intable && seencompanyfield) {
-#	companynameadd = trimspaces($0);
-#	colcompany = colcompany " " companynameadd;
-#	next;
-#    } else {
-#	# something is wrong
-#	printf("readkwh: error: special name 1 in unexpected place (%s) -- bailing\n", $0) >> "/dev/stderr";
-#	intable = 0;
-#	next;
-#    }
-#}
-#
-#/^БАЈНА БАШТА$/ {
-#    if (intable && seencompanyfield) {
-#	companynameadd = trimspaces($0);
-#	colcompany = colcompany " " companynameadd;
-#	next;
-#    } else {
-#	# something is wrong
-#	printf("readkwh: error: special name 2 in unexpected place (%s) -- bailing\n", $0) >> "/dev/stderr";
-#	intable = 0;
-#	next;
-#    }
-#}
 
 /^ .*$/ {
     if (intable) {
