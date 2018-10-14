@@ -25,6 +25,8 @@ To install, do
     cd powerplanttracker
     sudo make install
 
+For the installation to work, the software needs some tools that must be installed, such as the GNU awk, pdftotext, and wget. If these are not installed, the installation script will let the user know.
+
 To use the tracker, give the following command:
 
     ppt_flowcalculator.sh
