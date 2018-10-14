@@ -3,7 +3,7 @@ function reportone() {
     colkwhclean = colkwh;
     gsub(/[.]/,"",colkwhclean);
     gsub(/,/,".",colkwhclean);
-    printf("production:%s:%s\n", colname, colkwhclean);
+    printf("production:%s:%s:%s\n", colname, colkwhclean, nethead[colname]);
 }
 
 function checkifready() {

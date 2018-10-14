@@ -19,6 +19,17 @@ To use the tracker, give the following command:
 
     ppt_flowcalculator.sh
 
+The following options can also be used as needed
+
+    --debug
+    --no-debug
+
+Turns on or off debugging. The default is off
+
+    --country somecountry
+
+Sets the country to look at, or "all" to look at data from all available countries. The default is "all".
+
 The results will look something like this:
 
      138 hydro power plants
