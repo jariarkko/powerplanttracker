@@ -17,7 +17,7 @@ BEGIN {
     printf("Net head (height)      %12.3f m\n", nethead);
     printf("Average power          %12.3f KW\n", averagepowerkw);
     printf("Average flow           %12.3f m3/s\n", averageflowm3);
-    printf("Yearly flow            %12.3f m3/s\n", yearlyflowm3);
+    printf("Yearly flow            %12.3f m3\n", yearlyflowm3);
     
     printf("\n");
     

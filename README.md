@@ -6,6 +6,16 @@ The Power Plant Tracker (PPT) tracks hydro power station power outputs and flows
 
 This can be used to understand the use of water in various smaller and larger power stations, and to track the amount of water left for natural flow, for irrigation, fish and the rest of the natural river ecosystems. Or beauty of nature!
 
+Why does this matter? Obviously, hydro power is good for minimising carbon dioxide production. However, if no water is left for the natural water pathways at all, this will slowly destroy the river ecosystems. An example from Croatia:
+
+Now:
+
+![alt text](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower10-1024x768.jpg current)
+
+Before:
+
+![alt text](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower-2.jpg past)
+
 Usage
 ----
 
@@ -47,7 +57,7 @@ The results will look something like this:
      Net head (height)           60.900 m
      Average power              336.939 KW
      Average flow                 1.128 m3/s
-     Yearly flow           35571450.867 m3/s
+     Yearly flow           35571450.867 m3
 
 
 Supported government data sources

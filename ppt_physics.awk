@@ -3,13 +3,14 @@ function doflow(powerinkwh,neth) {
     #
     # From https://energypedia.info/wiki/Hydro_Power_Basics:
     #
-    #   Power [W] = Net head [m] x Flow [ l/s] x 9.81 [m/s²] (est. gravity constant) x 0.5 (turbine/generator efficiency)
+    #   Power [W] = Net head [m] x Flow [ l/s] x 9.81 [m/s²] (est. gravity constant) x 0.5 (turbine efficiency)
     #
     # So therefore we can turn this into
     #
     #   Flow [ l/s] = Power [W] / (Net head [m] x 9.81 [m/s²] x 0.5)
     #
-    # And that's for instantaneous flow and power. When we have a yearly power, we can calculate average l/s flow:
+    # And that's for instantaneous flow and power. When we have a yearly power, we can
+    # calculate average l/s flow:
     #
     #   Average power [Wh] = (Yearly Power [Wh] / 365 * 24)
     #   Average flow [ l/s ] = Average power [Wh] / (Net head [m] x 9.81 [m/s²] x 0.5)
