@@ -1,1 +1,2 @@
 country:serbia:ppt_fetchdata_serbia.sh
+country:finland:ppt_fetchdata_finland.sh

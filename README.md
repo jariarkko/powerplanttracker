@@ -53,7 +53,7 @@ The results will look something like this:
      211 power plants with energy production data
        1 hydro power plants with net head data
 
-     For hydro power station црквине:
+     For hydro power station црквине (Serbia, 2017):
      
      Yearly power           2951585.600 KWh
      Net head (height)           60.900 m
@@ -65,7 +65,7 @@ The results will look something like this:
 Supported government data sources
 ---------------------------------
 
-Currently, the software supports only Serbian government data sources.
+Currently, the software supports only Serbian and Finnish government data sources.
 
 It is possible to add new data sources. The file ppt_countries.txt holds entries of the following style:
 

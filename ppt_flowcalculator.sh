@@ -11,6 +11,13 @@ DEEPDEBUG=0
 COUNTRY=all
 
 #
+# Remove some files
+#
+
+rm -f $TMPDIR/power*.db
+rm -f $TMPDIR/hydro*.db
+
+#
 # Set the public sources of information
 #
 
@@ -119,9 +126,16 @@ do
     then
 	echo "ppt_flowcalculator: debug: running script $COUNTRYSCRIPT with arguments $SCRIPTARGS..." >> /dev/stderr
     fi
-    $BASEDIR/$COUNTRYSCRIPT $SCRIPTARGS >> $TMPDIR/power.all.db
+    $BASEDIR/$COUNTRYSCRIPT $SCRIPTARGS >> $TMPDIR/hydroandpower.all.db
     
 done
+
+#
+# Separate databases
+#
+
+fgrep hydroplant: $TMPDIR/hydroandpower.all.db > $TMPDIR/hydro.all.db
+fgrep production: $TMPDIR/hydroandpower.all.db > $TMPDIR/power.all.db
 
 #
 # Calculate flows
@@ -142,8 +156,8 @@ cat $TMPDIR/power.all.db |
 # Statistics
 #
 
-HYDRONUM=`cat $TMPDIR/hydro.db | wc -l`
-POWERNUM=`cat $TMPDIR/power.db | wc -l`
+HYDRONUM=`cat $TMPDIR/hydro.all.db | wc -l`
+POWERNUM=`cat $TMPDIR/power.all.db | wc -l`
 NETHEADNUM=`cat $NETHEADFILE | wc -l`
 echo "$HYDRONUM hydro power plants"
 echo "$POWERNUM power plants with energy production data"

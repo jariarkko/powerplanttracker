@@ -10,10 +10,17 @@ DEBUG=0
 DEEPDEBUG=0
 
 #
+# Remove some files
+#
+
+rm -f $TMPDIR/*.serbia.db
+
+#
 # Set the public sources of information
 #
 
-POWERWEBFILE="http://www.eps-snabdevanje.rs/obnovljivi-izvori/Documents/Izvestaj%20garantovanog%20snabdevaca%20za%202017%20godinu%20za%20sajt%20Ogranka%20EPSS.pdf"
+POWERYEAR=2017
+POWERWEBFILE="http://www.eps-snabdevanje.rs/obnovljivi-izvori/Documents/Izvestaj%20garantovanog%20snabdevaca%20za%20${POWERYEAR}%20godinu%20za%20sajt%20Ogranka%20EPSS.pdf"
 HYDROWEBFILE="http://www.mre.gov.rs/doc/registar-121018.html"
 
 #
@@ -95,7 +102,7 @@ fi
     gawk -v basedir=$BASEDIR \
 	 -v debug=$DEEPDEBUG \
 	 -f $BASEDIR/ppt_common.awk \
-	 -f $BASEDIR/ppt_parsehydro.awk > $TMPDIR/hydro.serbia.db
+	 -f $BASEDIR/ppt_parsehydro_serbia.awk > $TMPDIR/hydro.serbia.db
 
 if [ $DEBUG = 1 ]
 then
@@ -107,11 +114,14 @@ fi
     tee $TMPDIR/input.for.power.txt |
     gawk -v basedir=$BASEDIR \
 	 -v debug=$DEEPDEBUG \
+	 -v year=$POWERYEAR \
 	 -f $BASEDIR/ppt_common.awk \
-	 -f $BASEDIR/ppt_parsekwh.awk > $TMPDIR/power.serbia.db
+	 -f $BASEDIR/ppt_parsekwh_serbia.awk > $TMPDIR/power.serbia.db
 
 #
 # Output data
 #
 
-cat $TMPDIR/power.serbia.db
+(cat $TMPDIR/hydro.serbia.db
+ cat $TMPDIR/power.serbia.db)
+

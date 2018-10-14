@@ -1,6 +1,6 @@
 function checkifready() {
     if (numfieldctr == 5 && seennamefield && seencompanyfield) {
-	reportone("serbia");
+	reportone("serbia",year);
 	colname = "";
 	colkwh = "";
 	colcompany = "";

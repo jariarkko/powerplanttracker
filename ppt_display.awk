@@ -7,12 +7,13 @@ BEGIN {
     country = $2;
     name = $3;
     yearlykwh = $4;
-    nethead = $5;
-    averagepowerkw = $6;
-    averageflowm3 = $7;
-    yearlyflowm3 = $8;
+    kwhstyle = $5;
+    nethead = $6;
+    averagepowerkw = $7;
+    averageflowm3 = $8;
+    yearlyflowm3 = $9;
 
-    printf("For hydro power station %s (%s):\n", name, country);
+    printf("For hydro power station %s (%s, %s):\n", name, country, kwhstyle);
     printf("\n");
     printf("Yearly power           %12.3f KWh\n", yearlykwh);
     printf("Net head (height)      %12.3f m\n", nethead);

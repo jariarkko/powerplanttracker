@@ -1,3 +1,8 @@
+function convcommas(x) {
+    gsub(/,/,".",x);
+    return(x);
+}
+
 function handlecolname(x) {
     tmpfilein = "/tmp/colname";
     tmpfileout = "/tmp/colname.n";
@@ -11,12 +16,12 @@ function handlecolname(x) {
     return(res);
 }
 
-function reportone(country) {
+function reportone(country,kwhtype) {
     if (debug) printf("found a new KWh entry for %s at %s kwh, nethead = %s\n", colname, colkwh, nethead[colname]) >> "/dev/stderr";
     colkwhclean = colkwh;
     gsub(/[.]/,"",colkwhclean);
     gsub(/,/,".",colkwhclean);
-    printf("production:%s:%s:%s:%s\n", country, colname, colkwhclean, nethead[colname]);
+    printf("production:%s:%s:%s:%s:%s\n", country, colname, colkwhclean, kwhtype, nethead[colname]);
 }
 
 function trimspaces(s) {

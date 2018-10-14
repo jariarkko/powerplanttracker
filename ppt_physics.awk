@@ -42,18 +42,23 @@ BEGIN {
     FS = ":";
 }
 
+/^hydroplant:/ {
+    next;
+}
+
 /^production:/ {
     country = $2;
     name = $3;
     kwh = $4;
-    nethead = $5;
-
-    if (debug) printf("got power entry for %s...\n", name) >> "/dev/stderr";
+    kwhstyle = $5;
+    nethead = $6;
+    
+    if (debug) printf("got power entry for %s (style = %s)...\n", name, kwhstyle) >> "/dev/stderr";
     
     if (nethead != "") {
 	flow = doflow(kwh,nethead);
 	if (debug) printf("calculation for %s from %f is %f\n", name, nethead, flow) >> "/dev/stderr";
-	printf("flow:%s:%s:%f:%f:%s\n", country, name, kwh, nethead, flow);
+	printf("flow:%s:%s:%f:%s:%f:%s\n", country, name, kwh, kwhstyle, nethead, flow);
     }
     next;
 }
