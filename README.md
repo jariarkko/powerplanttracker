@@ -24,7 +24,12 @@ The following options can also be used as needed
     --debug
     --no-debug
 
-Turns on or off debugging. The default is off
+Turns on or off high-level debugging. The default is off
+
+    --deep-debug
+    --no-deep-debug
+
+Turns on or off detailed debugging. The default is off
 
     --country somecountry
 
@@ -35,6 +40,15 @@ The results will look something like this:
      138 hydro power plants
      211 power plants with energy production data
        1 hydro power plants with net head data
+
+     For hydro power station црквине:
+     
+     Yearly power           2951585.600 KWh
+     Net head (height)           60.900 m
+     Average power              336.939 KW
+     Average flow                 1.128 m3/s
+     Yearly flow           35571450.867 m3/s
+
 
 Supported government data sources
 ---------------------------------

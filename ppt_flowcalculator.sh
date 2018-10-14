@@ -6,6 +6,7 @@
 TMPDIR=/tmp
 BASEDIR=`echo $0 | sed 's%/ppt_flowcalculator.sh%%g'`
 DEBUG=0
+DEEPDEBUG=0
 COUNTRY=all
 
 #
@@ -36,6 +37,16 @@ do
 	
 	x--no-debug)
 	    DEBUG=0;
+	    DEEPDEBUG=0;
+	    shift;;
+	
+	x--deep-debug)
+	    DEBUG=1;
+	    DEEPDEBUG=1;
+	    shift;;
+	
+	x--no-deep-debug)
+	    DEEPDEBUG=0;
 	    shift;;
 	
 	x--country)
@@ -120,7 +131,10 @@ fi
 (cat $NETHEADFILE;
  cat $TMPDIR/hydro.html) |
     tee $TMPDIR/input.for.hydro.txt |
-    gawk -v basedir=$BASEDIR -f $BASEDIR/ppt_common.awk -f $BASEDIR/ppt_parsehydro.awk > $TMPDIR/hydro.db
+    gawk -v basedir=$BASEDIR \
+	 -v debug=$DEEPDEBUG \
+	 -f $BASEDIR/ppt_common.awk \
+	 -f $BASEDIR/ppt_parsehydro.awk > $TMPDIR/hydro.db
 
 if [ $DEBUG = 1 ]
 then
@@ -130,7 +144,10 @@ fi
 (cat $TMPDIR/hydro.db;
  cat $TMPDIR/kwh.txt) |
     tee $TMPDIR/input.for.power.txt |
-    gawk -v basedir=$BASEDIR -f $BASEDIR/ppt_common.awk -f $BASEDIR/ppt_parsekwh.awk > $TMPDIR/power.db
+    gawk -v basedir=$BASEDIR \
+	 -v debug=$DEEPDEBUG \
+	 -f $BASEDIR/ppt_common.awk \
+	 -f $BASEDIR/ppt_parsekwh.awk > $TMPDIR/power.db
 
 #
 # Calculate flows
@@ -142,7 +159,10 @@ then
 fi
 
 cat $TMPDIR/power.db |
-    gawk -v basedir=$BASEDIR -f $BASEDIR/ppt_common.awk -f $BASEDIR/ppt_physics.awk > $TMPDIR/flows.db
+    gawk -v basedir=$BASEDIR \
+	 -v debug=$DEEPDEBUG \
+	 -f $BASEDIR/ppt_common.awk \
+	 -f $BASEDIR/ppt_physics.awk > $TMPDIR/flows.db
 
 #
 # Statistics
@@ -154,3 +174,8 @@ NETHEADNUM=`cat $NETHEADFILE | wc -l`
 echo "$HYDRONUM hydro power plants"
 echo "$POWERNUM power plants with energy production data"
 echo "$NETHEADNUM hydro power plants with net head data"
+
+echo ''
+
+gawk 	 -f $BASEDIR/ppt_common.awk \
+	 -f $BASEDIR/ppt_display.awk < $TMPDIR/flows.db

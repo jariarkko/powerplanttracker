@@ -1,5 +1,5 @@
 function reportone() {
-    #printf("found a new KWh entry for %s at %s kwh\n", colname, colkwh) >> "/dev/stderr";
+    if (debug) printf("found a new KWh entry for %s at %s kwh, nethead = %s\n", colname, colkwh, nethead[colname]) >> "/dev/stderr";
     colkwhclean = colkwh;
     gsub(/[.]/,"",colkwhclean);
     gsub(/,/,".",colkwhclean);
@@ -34,8 +34,8 @@ BEGIN {
 /^hydroplant:/ {
     name = $3;
     netheadval = $5;
-    nethead[name] = val;
-    #printf("installed nethead for %s as %s\n", name, val) >> "/dev/stderr";
+    nethead[name] = netheadval;
+    if (debug) printf("installed nethead for %s as %s (maxpower %s)\n", name, netheadval, $4) >> "/dev/stderr";
     next;
 }
     
@@ -120,7 +120,7 @@ BEGIN {
 /^ .*$/ {
     if (intable) {
 	if (seennamefield == 0) {
-	    colname = trimspaces($0);
+	    colname = handlecolname(trimspaces($0));
 	    seennamefield = 1;
 	    #printf("readkwh: read a name field (%s)\n", colname) >> "/dev/stderr";
 	    next;
@@ -128,11 +128,11 @@ BEGIN {
 	    colnameadd = trimspaces($0);
 	    if (notspecialnames[colnameadd] == 1) {
 		checkifready();
-		colname = trimspaces($0);
+		colname = handlecolname(trimspaces($0));
 		seennamefield = 1;
 		#printf("readkwh: read a non-special name field (%s)\n", colname) >> "/dev/stderr";
 	    } else {
-		colname = colname " " colnameadd;
+		colname = handlecolname(colname " " colnameadd);
 		#printf("readkwh: read more for a name field (%s)\n", colname) >> "/dev/stderr";
 	    }
 	    next;
