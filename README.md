@@ -10,11 +10,11 @@ Why does this matter? Obviously, hydro power is good for minimising carbon dioxi
 
 Now:
 
-![current](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower10-1024x768.jpg)
+![current](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower10-1024x768.jpg | width=300)
 
 Before:
 
-![past](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower-2.jpg)
+![past](https://bankwatch.org/wp-content/uploads/2018/03/dabrova-dolina-croatia-why-not-build-small-hydropower-2.jpg| width=300)
 
 Usage
 ----
