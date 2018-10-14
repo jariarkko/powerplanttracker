@@ -68,4 +68,4 @@ Currently, the software supports only Serbian government data sources.
 Contributors
 ------------
 
-The contributors to this software and the data sources are Jari Arkko and Igor Vejnovic. The work was done in the Descon hackathon event in October 2018.
+The contributors to this software and the data sources are Jari Arkko, Igor Vejnovic, and Ioana Ciuta. The work was done in the Descon hackathon event in October 2018.
