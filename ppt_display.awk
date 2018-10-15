@@ -15,11 +15,11 @@ BEGIN {
 
     printf("For hydro power station %s (%s, %s):\n", name, country, kwhstyle);
     printf("\n");
-    printf("Yearly power           %12.3f KWh\n", yearlykwh);
-    printf("Net head (height)      %12.3f m\n", nethead);
-    printf("Average power          %12.3f KW\n", averagepowerkw);
-    printf("Average flow           %12.3f m3/s\n", averageflowm3);
-    printf("Yearly flow            %12.3f m3\n", yearlyflowm3);
+    printf("Yearly power           %14.3f KWh\n", yearlykwh);
+    printf("Net head (height)      %14.3f m\n", nethead);
+    printf("Average power          %14.3f KW\n", averagepowerkw);
+    printf("Average flow           %14.3f m3/s\n", averageflowm3);
+    printf("Yearly flow            %14.3f m3\n", yearlyflowm3);
     
     printf("\n");
     
